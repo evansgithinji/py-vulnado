@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Internal API Service</title>
+</head>
+<body>
+    <h1>Internal API Service</h1>
+    <p><strong>WARNING:</strong> This is an internal service that should not be accessible from the outside.</p>
+
+    <h2>Available Endpoints</h2>
+    <ul>
+        <li><code>/admin</code> - Admin panel with secrets</li>
+        <li><code>/api/internal</code> - Internal infrastructure details</li>
+        <li><code>/health</code> - Health check</li>
+    </ul>
+
+    <h2>Secret Information</h2>
+    <pre>
+DATABASE_CONNECTION_STRING=postgresql://admin:super_secret_db_pass@db.internal:5432/production
+REDIS_URL=redis://:redis_password_123@redis.internal:6379/0
+AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+    </pre>
+</body>
+</html>
