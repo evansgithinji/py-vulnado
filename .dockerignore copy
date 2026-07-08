@@ -1,0 +1,34 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+README*
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Local data directories (will be created in container)
+data/
+uploads/
+exports/
+backups/
+
+# Build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go specific
+vendor/
+
+# OS files
+.DS_Store
+Thumbs.db
