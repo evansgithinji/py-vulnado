@@ -1,0 +1,59 @@
+services:
+  vulnerable-app:
+    build: .
+    container_name: vulnerable-pythonapp
+    ports:
+      - "5001:5001"
+    environment:
+      - PORT=5001
+      - DB_PATH=/app/data/app.db
+      - UPLOAD_DIR=/app/uploads
+      - FILES_DIR=/app/files
+      - IMAGES_DIR=/app/images
+      - STATIC_DIR=/app/static
+      - EXPORTS_DIR=/app/exports
+      - BACKUPS_DIR=/app/backups
+      - SECRET_KEY=vulnerable-secret-key-12345
+      - API_KEY=ak_vuln_python_test_key_98765
+      - DATABASE_PASSWORD=db_p@ssw0rd_python!
+      - ADMIN_PASSWORD=admin_super_secret
+    volumes:
+      - app-data:/app/data
+      - app-uploads:/app/uploads
+      - app-exports:/app/exports
+      - app-backups:/app/backups
+    networks:
+      - vulnerable-network
+    restart: unless-stopped
+
+  internal-api:
+    image: nginx:alpine
+    container_name: pythonapp-internal-api
+    volumes:
+      - ./internal-api/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./internal-api/html:/usr/share/nginx/html:ro
+    networks:
+      - vulnerable-network
+
+  metadata-service:
+    image: python:3.11-alpine
+    container_name: pythonapp-metadata-service
+    command: python -m http.server 80
+    working_dir: /metadata
+    volumes:
+      - ./metadata:/metadata:ro
+    networks:
+      - vulnerable-network
+
+volumes:
+  app-data:
+  app-uploads:
+  app-exports:
+  app-backups:
+
+networks:
+  vulnerable-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.0.0/24
